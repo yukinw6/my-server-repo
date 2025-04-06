@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>ChatGPT Web UI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="container mt-5">
+    <h1 class="mb-4">ChatGPTと会話しよう</h1>
+
+    <form method="POST">
+        <div class="mb-3">
+            <textarea name="user_input" class="form-control" rows="5" placeholder="質問を入力してください"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">送信</button>
+    </form>
+
+    {% if response_text %}
+    <div class="mt-4">
+        <h2>ChatGPTの応答：</h2>
+        <div class="p-3 border rounded bg-light">{{ response_text | safe }}</div>
+    </div>
+    {% endif %}
+
+    {% if openai_response %}
+    <p>{{ openai_response }}</p>
+    {% endif %}
+
+    <div class="mt-5">
+        <h2>会話履歴</h2>
+        <ul class="list-group">
+            {% for h in history %}
+            <li class="list-group-item">
+                <strong>あなた:</strong> {{ h.user }}<br>
+                <strong>GPT:</strong>
+                <div class="ms-3">{{ h.assistant | safe }}</div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+
+</html>
